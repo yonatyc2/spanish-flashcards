@@ -2,39 +2,79 @@ import React, { useState } from "react";
 import { HomePage } from "./HomePage";
 import { CategorySelectionPage } from "./CategorySelectionPage";
 import { StatsPage } from "./StatsPage";
+import { StudyPage } from "./StudyPage";
+import { QuizPlaceholderPage } from "./QuizPlaceholderPage";
+import type { Category } from "../data/flashcards";
 
-export type Mode = "home" | "study-category" | "quiz-category" | "stats";
+type View =
+  | "home"
+  | "study-category"
+  | "quiz-category"
+  | "study-session"
+  | "quiz-session"
+  | "stats";
 
 export const App: React.FC = () => {
-  const [mode, setMode] = useState<Mode>("home");
+  const [view, setView] = useState<View>("home");
+  const [selectedCategory, setSelectedCategory] = useState<Category | null>(
+    null
+  );
 
-  if (mode === "study-category") {
+  if (view === "study-category") {
     return (
       <CategorySelectionPage
         title="Study Mode — Choose a Category"
-        onBack={() => setMode("home")}
+        mode="study"
+        onBack={() => setView("home")}
+        onSelectCategory={(category) => {
+          setSelectedCategory(category);
+          setView("study-session");
+        }}
       />
     );
   }
 
-  if (mode === "quiz-category") {
+  if (view === "quiz-category") {
     return (
       <CategorySelectionPage
         title="Quiz Mode — Choose a Category"
-        onBack={() => setMode("home")}
+        mode="quiz"
+        onBack={() => setView("home")}
+        onSelectCategory={(category) => {
+          setSelectedCategory(category);
+          setView("quiz-session");
+        }}
       />
     );
   }
 
-  if (mode === "stats") {
-    return <StatsPage onBack={() => setMode("home")} />;
+  if (view === "study-session" && selectedCategory) {
+    return (
+      <StudyPage
+        category={selectedCategory}
+        onBack={() => setView("study-category")}
+      />
+    );
+  }
+
+  if (view === "quiz-session" && selectedCategory) {
+    return (
+      <QuizPlaceholderPage
+        category={selectedCategory}
+        onBack={() => setView("quiz-category")}
+      />
+    );
+  }
+
+  if (view === "stats") {
+    return <StatsPage onBack={() => setView("home")} />;
   }
 
   return (
     <HomePage
-      onGoToStudy={() => setMode("study-category")}
-      onGoToQuiz={() => setMode("quiz-category")}
-      onGoToStats={() => setMode("stats")}
+      onGoToStudy={() => setView("study-category")}
+      onGoToQuiz={() => setView("quiz-category")}
+      onGoToStats={() => setView("stats")}
     />
   );
 };
