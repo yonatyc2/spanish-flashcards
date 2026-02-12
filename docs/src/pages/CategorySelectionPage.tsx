@@ -1,6 +1,7 @@
 import React from "react";
 import type { Category } from "../data/flashcards";
 
+// Human-readable labels mapped to the internal category keys used in the data file.
 const CATEGORIES: { label: string; value: Category }[] = [
   { label: "Animals", value: "animals" },
   { label: "Food", value: "food" },
@@ -9,8 +10,10 @@ const CATEGORIES: { label: string; value: Category }[] = [
 
 interface CategorySelectionPageProps {
   title: string;
+  // Whether the user is starting a Study or Quiz flow.
   mode: "study" | "quiz";
   onBack: () => void;
+  // Bubble the chosen category + mode up to App so it can route correctly.
   onSelectCategory: (category: Category, mode: "study" | "quiz") => void;
 }
 

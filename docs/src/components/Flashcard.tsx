@@ -3,13 +3,29 @@ import React, { useState } from "react";
 interface FlashcardProps {
   spanish: string;
   english: string;
+  /** Controlled mode: parent tracks flip state (e.g. for showing Right/Wrong). */
+  flipped?: boolean;
+  onFlipChange?: (flipped: boolean) => void;
 }
 
-export const Flashcard: React.FC<FlashcardProps> = ({ spanish, english }) => {
-  const [flipped, setFlipped] = useState(false);
+// Single flashcard that toggles between Spanish (front) and English (back)
+// when the user clicks or taps it.
+export const Flashcard: React.FC<FlashcardProps> = ({
+  spanish,
+  english,
+  flipped: controlledFlipped,
+  onFlipChange
+}) => {
+  const [internalFlipped, setInternalFlipped] = useState(false);
+  const isControlled = controlledFlipped !== undefined && onFlipChange != null;
+  const flipped = isControlled ? controlledFlipped : internalFlipped;
 
   const handleToggle = () => {
-    setFlipped((prev) => !prev);
+    if (isControlled) {
+      onFlipChange(!flipped);
+    } else {
+      setInternalFlipped((prev) => !prev);
+    }
   };
 
   const isFront = !flipped;
@@ -26,4 +42,3 @@ export const Flashcard: React.FC<FlashcardProps> = ({ spanish, english }) => {
     </button>
   );
 };
-

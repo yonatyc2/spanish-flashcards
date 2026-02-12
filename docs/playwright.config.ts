@@ -10,8 +10,9 @@ const config: PlaywrightTestConfig = {
     command: "npm run dev",
     url: "http://127.0.0.1:5173",
     reuseExistingServer: !process.env.CI,
-    timeout: 120_000
-  }
+    timeout: 180_000
+  },
+  timeout: 30_000
 };
 
 export default config;

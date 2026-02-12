@@ -153,6 +153,101 @@ button:active {
   border-color: #e5e7eb;
 }
 
+/* Previous / Next row under the flashcard; buttons sit side by side. */
+.study-nav {
+  display: flex;
+  gap: 0.75rem;
+  justify-content: center;
+  margin-top: 1.25rem;
+}
+
+.study-nav button {
+  width: auto;
+  min-width: 7rem;
+}
+
+/* Right / Wrong buttons after flipping a card. */
+.study-right-wrong {
+  display: flex;
+  gap: 0.75rem;
+  justify-content: center;
+  margin-top: 1.25rem;
+}
+
+.study-right-wrong button {
+  width: auto;
+  min-width: 8rem;
+}
+
+/* Quiz */
+.quiz-prompt {
+  font-size: 1.5rem;
+  margin: 1rem 0;
+  color: #e5e7eb;
+}
+
+.quiz-input {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  font-size: 1rem;
+  border-radius: 0.5rem;
+  border: 1px solid rgba(148, 163, 184, 0.6);
+  background: #0f172a;
+  color: #e5e7eb;
+}
+
+.quiz-feedback {
+  margin-top: 1rem;
+  font-weight: 600;
+}
+
+.quiz-feedback--correct {
+  color: #22c55e;
+}
+
+.quiz-feedback--wrong {
+  color: #ef4444;
+}
+
+button.wrong-choice {
+  background: #7f1d1d;
+  color: #fecaca;
+  border-color: #b91c1c;
+}
+
+/* Stats page */
+.stats-block {
+  margin: 1rem 0;
+  padding: 1rem;
+  background: rgba(15, 23, 42, 0.6);
+  border-radius: 0.5rem;
+  border: 1px solid rgba(148, 163, 184, 0.2);
+}
+
+.stats-block--small {
+  margin: 0.5rem 0;
+  padding: 0.75rem;
+}
+
+.stats-row {
+  display: flex;
+  justify-content: space-between;
+  margin: 0.35rem 0;
+  color: #e5e7eb;
+}
+
+.stats-heading {
+  font-size: 1.1rem;
+  margin: 1.25rem 0 0.5rem;
+  color: #9ca3af;
+}
+
+.stats-category-label {
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  color: #e5e7eb;
+}
+
 .flashcard-container {
   margin-top: 1rem;
   display: flex;

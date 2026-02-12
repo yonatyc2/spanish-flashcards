@@ -1,16 +1,21 @@
 import React from "react";
+import { useApp } from "../context/AppContext";
 
 interface HomePageProps {
   onGoToStudy: () => void;
   onGoToQuiz: () => void;
   onGoToStats: () => void;
+  onGoToRedo: () => void;
 }
 
 export const HomePage: React.FC<HomePageProps> = ({
   onGoToStudy,
   onGoToQuiz,
-  onGoToStats
+  onGoToStats,
+  onGoToRedo
 }) => {
+  const { hasWrongCards, clearWrongCards } = useApp();
+
   return (
     <main className="page">
       <section className="card">
@@ -25,12 +30,25 @@ export const HomePage: React.FC<HomePageProps> = ({
           <button className="secondary" onClick={onGoToQuiz}>
             Quiz Mode
           </button>
+          {hasWrongCards && (
+            <button className="primary" onClick={onGoToRedo}>
+              Redo Wrong Cards
+            </button>
+          )}
           <button className="ghost" onClick={onGoToStats}>
             Stats Page
           </button>
+          {hasWrongCards && (
+            <button
+              type="button"
+              className="ghost"
+              onClick={clearWrongCards}
+            >
+              Clear wrong cards list
+            </button>
+          )}
         </div>
       </section>
     </main>
   );
 };
-
